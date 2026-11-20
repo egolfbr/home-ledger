@@ -169,8 +169,10 @@ if [ ${#missing[@]} -gt 0 ]; then
       note "Homebrew is installed, so this can be done for you."
       if confirm "brew install ${formulae[*]}"; then
         brew install "${formulae[@]}"
+        # Let rustup add ~/.cargo/bin to the shell profile, or the new terminal
+        # the message below asks for would still not find cargo.
         command -v rustup-init >/dev/null 2>&1 && ! command -v cargo >/dev/null 2>&1 &&
-          rustup-init -y --no-modify-path
+          rustup-init -y
         say "Toolchain installed. Open a new terminal so PATH picks it up, then run this again."
       fi
     fi
